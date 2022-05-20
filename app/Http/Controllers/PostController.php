@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 
@@ -19,8 +21,8 @@ class PostController extends Controller
         // $posts = Post::all() ;
 
         // Pour faire la requête en where_id en une seule fois
-        //         category = fct° dans le modèle à qui on affecte la fct° 'get()'
-        $posts = Post::with('category')->get() ;
+        //         category et user = fcts° dans le modèle à qui on affecte la fct° 'get()'
+        $posts = Post::with('category', 'user')->latest()->get() ;
         return view('post.index', compact('posts')) ;
     }
 
@@ -31,7 +33,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Category::all() ;
+        return view('post.create', compact('categories')) ;
     }
 
     /**
@@ -42,7 +45,15 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $imageName = $request->image->store('posts') ;
+
+        Post::create([
+            'name' => $request->name,
+            'content' => $request->content,
+            'image' => $imageName,
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Votre post a été créé'); 
     }
 
     /**
@@ -53,7 +64,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post.show', compact('post')) ;
     }
 
     /**

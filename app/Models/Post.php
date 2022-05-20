@@ -14,6 +14,23 @@ class Post extends Model
 
     protected $guarded = [] ;
 
+    /**
+     * Au lieu d'écrire ça dans le contolleur voir juste en dessous
+     *    Post::create([
+     *       'name' => $request->name,
+     *       'content' => $request->content,
+     *       'image' => $imageName,
+     *  ]); 
+     */
+    public static function boot(){
+        parent::boot() ;
+
+        self::creating(function ($post) {
+            $post->user()->associate(auth()->user()->id) ;
+            $post->category()->associate(request()->category) ;
+        });
+    }
+
     public function user(){
 
         return $this->belongsTo(User::class);
