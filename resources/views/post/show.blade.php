@@ -8,7 +8,9 @@
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-        <img src="{{ asset('/storage/' . $post->image) }}" alt="">
+        <!-- dd( asset('/storage/' . $post->image) ) -->
+        <!-- <img src="{{ asset('/storage/' . $post->image) }}" alt=""> -->
+        <img class="w-full" src="{{ asset('/storage/' . $post->image) }}" alt="">
         <div>
             {{ $post->content }}
         </div>
