@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use App\Models\Post;
 use App\Models\User;
 use Illuminate\View\Component;
 
@@ -27,6 +28,10 @@ class UserComponent extends Component
     public function render()
     {
         $users = User::limit(5)->get() ;
+        
+        //Afficher au hasard
+        // $users = User::limit(5)->inRandomOrder()->get() ;
+
         return view('components.user-component', compact('users'));
     }
 }

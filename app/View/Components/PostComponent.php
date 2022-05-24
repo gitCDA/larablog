@@ -2,18 +2,23 @@
 
 namespace App\View\Components;
 
+use App\Models\Post;
 use Illuminate\View\Component;
 
-class SideBarComponent extends Component
+class PostComponent extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+
+    
+    public $post ;
+
+    public function __construct($post)
     {
-        //
+        $this->post = $post ;
     }
 
     /**
@@ -23,6 +28,7 @@ class SideBarComponent extends Component
      */
     public function render()
     {
-        return view('components.side-bar-component');
+
+        return view('components.post-component');
     }
 }

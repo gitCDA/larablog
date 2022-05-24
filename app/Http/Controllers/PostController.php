@@ -23,10 +23,32 @@ class PostController extends Controller
 
         // Pour faire la requête en where_id en une seule fois
         //         category et user = fcts° dans le modèle à qui on affecte la fct° 'get()'
-        $posts = Post::with('category', 'user')->latest()->get() ;
+        $posts = Post::with('category', 'user')->latest()->paginate(4) ;
         
         return view('post.index', compact('posts')) ;
     }
+
+
+    public function category($id)
+    {
+
+        //              Où    category_id    =   $id
+        $posts = Post::where('category_id', '=', $id)->paginate(4) ;
+        
+        return view('post.index', compact('posts')) ;
+    }
+
+
+
+    public function user($id)
+    {
+
+        //              Où    user_id    =   $id
+        $posts = Post::where('user_id', '=', $id)->paginate(4) ;
+        
+        return view('post.index', compact('posts')) ;
+    }
+
 
     /**
      * Show the form for creating a new resource.

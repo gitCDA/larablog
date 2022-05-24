@@ -23,6 +23,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
+Route::get('/category/{id}', [PostController::class, 'category'])->name('posts.category');
+
+Route::get('/user/{id}', [PostController::class, 'user'])->name('posts.user');
+
 
 Route::middleware(['auth'])->group(function () {
 
